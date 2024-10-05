@@ -1,0 +1,49 @@
+<p>Lista de Usuarios</p>
+
+
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+ <div class="btn-group me-2" role="group" aria-label="First group">
+   <button [routerLink]="['/home']" class="btn btn-outline-danger">
+     <i class="fa fa-undo"></i>
+     Regresar
+   </button>
+ </div>
+
+
+ <div class="btn-group" role="group" aria-label="Third group">
+   <button [routerLink]="['/usuario', -1]" type="button" class="btn btn-outline-success">
+     <i class="fa fa-plus"></i>
+     Nuevo Usuario
+   </button>
+ </div>
+</div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">CONTRASEÑA</th>
+        <th scope="col">EMAIL</th>
+        <th scope="col">NUMERO TELEFONO</th>
+        <th scope="col">MINIBIOGRAFIA</th>
+        <th scope="col">ID PERSONA</th>
+        <th scope="col">ACCION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <th scope="row">{{usuario.id_usuario}}</th>
+        <td>{{usuario.contrasena}}</td>
+        <td>{{usuario.email}}</td>
+        <td>{{usuario.numero_telefono}}</td>
+        <td>{{usuario.minibiografia}}</td>
+        <td>{{usuario.id_persona}}</td>
+        <td>
+            <div>
+            <button (click)="editarUsuario(usuario.id_usuario)" type="button" class="btn btn-primary">Editar</button>
+            <button (click)="eliminarUsuario(usuario)" type="button" class="btn btn-danger">Eliminar</button>
+        </div>
+        </td>
+    </tr>
+    </tbody>
+  </table>

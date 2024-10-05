@@ -1,0 +1,33 @@
+<form (ngSubmit)="guardar()" #forma="ngForm">
+    <div class="mb-3">
+      <label for="exampleInputNombres" class="form-label">Nombres</label>
+      <input
+      [(ngModel)]="unaPersona.nombres"
+      name="nombres"
+      type="text" class="form-control" id="nombres" aria-describedby="emailHelp"
+      required>
+    </div>
+
+
+    <div class="mb-3">
+      <label for="exampleInputApellidos" class="form-label">Apellidos</label>
+      <input
+      [(ngModel)]="unaPersona.apellidos"
+      name="apellidos"
+      type="text" class="form-control" id="apellidos" required>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="exampleInputFechaNacimiento" class="form-label">Fecha Nacimiento</label>
+        <input
+        [(ngModel)]="unaPersona.fecha_nacimiento"
+        name="fecha_nacimiento"
+        type="date" class="form-control" id="fecha_nacimiento"
+        required>
+      </div>
+ 
+    <button
+    [disabled]="!forma.valid"
+    type="submit" class="btn btn-primary">Submit</button>
+  </form>

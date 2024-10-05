@@ -1,0 +1,36 @@
+<!-- login.component.html -->
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="w-50 mx-auto mt-5 p-4 border rounded shadow-sm bg-light">
+  
+    <!-- Correo Electrónico -->
+    <div class="form-group mb-3">
+      <label for="email" class="form-label">Correo Electrónico:</label>
+      <input 
+        id="email" 
+        formControlName="email" 
+        type="email" 
+        class="form-control" 
+        placeholder="Ingresa tu correo electrónico" 
+        required
+      />
+    </div>
+    
+    <!-- Contraseña -->
+    <div class="form-group mb-4">
+      <label for="contraseña" class="form-label">Contraseña:</label>
+      <input 
+        id="contraseña" 
+        formControlName="contraseña" 
+        type="password" 
+        class="form-control" 
+        placeholder="Ingresa tu contraseña" 
+        required
+      />
+    </div>
+    
+    <!-- Botón de Enviar -->
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+    </div>
+    
+  </form>
+  

@@ -1,0 +1,14 @@
+<form (ngSubmit)="guardar()" #forma="ngForm">
+    <div class="mb-3">
+      <label for="exampleInputNombre" class="form-label">Nombre</label>
+      <input
+      [(ngModel)]="unaCiudad.nombre"
+      name="nombre"
+      type="text" class="form-control" id="nombre" aria-describedby="emailHelp"
+      required>
+    </div>
+ 
+    <button
+    [disabled]="!forma.valid"
+    type="submit" class="btn btn-primary">Submit</button>
+  </form>

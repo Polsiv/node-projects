@@ -1,0 +1,48 @@
+
+
+<p>Lista de Personas</p>
+
+
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+ <div class="btn-group me-2" role="group" aria-label="First group">
+   <button [routerLink]="['/home']" class="btn btn-outline-danger">
+     <i class="fa fa-undo"></i>
+     Regresar
+   </button>
+ </div>
+
+
+ <div class="btn-group" role="group" aria-label="Third group">
+   <button [routerLink]="['/persona', -1]" type="button" class="btn btn-outline-success">
+     <i class="fa fa-plus"></i>
+     Nueva Persona
+   </button>
+ </div>
+</div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NOMBRES</th>
+        <th scope="col">APELLIDOS</th>
+        <th scope="col">FECHA DE NACIMIENTO</th>
+        <th scope="col">ACCION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let persona of personas">
+        <th scope="row">{{persona.id_persona}}</th>
+        <td>{{persona.nombres}}</td>
+        <td>{{persona.apellidos}}</td>
+        <td>{{persona.fecha_nacimiento}}</td>
+        <td>
+            <div>
+            <button (click)="editarPersona(persona.id_persona)" type="button" class="btn btn-primary">Editar</button>
+            <button (click)="eliminarPersona(persona)" type="button" class="btn btn-danger">Eliminar</button>
+        </div>
+        </td>
+    
+    </tr>
+    </tbody>
+  </table>

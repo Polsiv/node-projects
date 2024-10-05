@@ -1,0 +1,42 @@
+<p>Lista de Ciudades</p>
+
+
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+ <div class="btn-group me-2" role="group" aria-label="First group">
+   <button [routerLink]="['/home']" class="btn btn-outline-danger">
+     <i class="fa fa-undo"></i>
+     Regresar
+   </button>
+ </div>
+
+
+ <div class="btn-group" role="group" aria-label="Third group">
+   <button [routerLink]="['/ciudad', -1]" type="button" class="btn btn-outline-success">
+     <i class="fa fa-plus"></i>
+     Nueva Ciudad
+   </button>
+ </div>
+</div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NOMBRE</th>
+        <th scope="col">ACCION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ciudad of ciudades">
+        <th scope="row">{{ciudad.id_ciudad}}</th>
+        <td>{{ciudad.nombre}}</td>
+        <td>
+            <div>
+            <button (click)="editarCiudad(ciudad.id_ciudad)" type="button" class="btn btn-primary">Editar</button>
+            <button (click)="eliminarCiudad(ciudad)" type="button" class="btn btn-danger">Eliminar</button>
+        </div>
+        </td>
+    
+    </tr>
+    </tbody>
+  </table>

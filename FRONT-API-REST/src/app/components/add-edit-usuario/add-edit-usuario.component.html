@@ -1,0 +1,51 @@
+<form (ngSubmit)="guardar()" #forma="ngForm">
+    <div class="mb-3">
+      <label for="exampleInputContrasena" class="form-label">Contraseña</label>
+      <input
+      [(ngModel)]="unUsuario.contrasena"
+      name="contrasena"
+      type="text" class="form-control" id="contrasena" aria-describedby="emailHelp"
+      required>
+    </div>
+
+
+    <div class="mb-3">
+      <label for="exampleInputEmail" class="form-label">Email</label>
+      <input
+      [(ngModel)]="unUsuario.email"
+      name="email"
+      type="text" class="form-control" id="email" required>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="exampleInputNumeroTelefono" class="form-label">Numero de Telefono</label>
+        <input
+        [(ngModel)]="unUsuario.numero_telefono"
+        name="numero_telefono"
+        type="text" class="form-control" id="numero_telefono"
+        required>
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputMinibiografia" class="form-label">Minibiografia</label>
+        <input
+        [(ngModel)]="unUsuario.minibiografia"
+        name="Minibiografia"
+        type="text" class="form-control" id="Minibiografia"
+        required>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputIdPersona" class="form-label">ID Persona</label>
+      <input
+      [(ngModel)]="unUsuario.id_persona"
+      name="id_persona"
+      type="text" class="form-control" id="id_persona"
+      required>
+  </div>
+
+    <button
+    [disabled]="!forma.valid"
+    type="submit" class="btn btn-primary">Submit</button>
+  </form>

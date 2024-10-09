@@ -16,6 +16,11 @@ class Server {
             ciudad: '/api/ciudad',
         }
 
+        this.pathsMongo = {
+            equipos: '/api/equipos'
+
+        }
+
         //Aqui me conecto a la BD
         this.dbConnectionMySql();
 
@@ -47,6 +52,7 @@ class Server {
     this.app.use(this.pathsMySql.persona, require('../routes/persona'));
     this.app.use(this.pathsMySql.usuario, require('../routes/usuario'));
     this.app.use(this.pathsMySql.ciudad, require('../routes/ciudad'));
+    this.app.use(this.pathsMongo.equipos, require('../routes/equipo'));
     }
 
     middlewares() {

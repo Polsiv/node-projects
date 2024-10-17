@@ -17,7 +17,8 @@ class Server {
         }
 
         this.pathsMongo = {
-            equipos: '/api/equipos'
+            equipos: '/api/equipos',
+            futbolistas: '/api/futbolistas'
 
         }
 
@@ -53,6 +54,7 @@ class Server {
     this.app.use(this.pathsMySql.usuario, require('../routes/usuario'));
     this.app.use(this.pathsMySql.ciudad, require('../routes/ciudad'));
     this.app.use(this.pathsMongo.equipos, require('../routes/equipo'));
+    this.app.use(this.pathsMongo.futbolistas, require('../routes/futbolista'));
     }
 
     middlewares() {

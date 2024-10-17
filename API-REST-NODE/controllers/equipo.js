@@ -1,8 +1,7 @@
 const {Equipo} = require("../models");
 
 const obtenerEquiposGet = async (req, res = response) => {
-
-    const { limite = 5, desde = 0 } = req.query;
+    const {desde = 0 } = req.query;
 
     try {
       const [total, equipos] = await Promise.all([

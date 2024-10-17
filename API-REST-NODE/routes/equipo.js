@@ -1,24 +1,22 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos")
-const existeEquipoPorId = require("../helpers/db-validators")
-
+const { existeEquipoPorId }= require("../helpers/db-validators")
 const { obtenerEquiposGet, obtenerEquipoGet } = require("../controllers/equipo")
 
 
 const router = Router();
 
-
 router.get('/', obtenerEquiposGet)
 
-
-router.get('/:id',[
-    check('id', 'No es un id de Mongo válido').isMongoId(),
+router.get('/:id',
+    [
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existeEquipoPorId ),
     validarCampos,
-    //check('id').custom( existeEquipoPorId ),
-    validarCampos,
-], obtenerEquipoGet );
+    ],
+    obtenerEquipoGet );
 
 
 
-module.exports = router
+module.exports = router;

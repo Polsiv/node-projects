@@ -10,10 +10,9 @@ const EquipoSchema = Schema({
         type: String,
         required: [true, 'El pais es obligatorio'],
     }
-}, 
-    {
-    collection: 'Equipos'
-});
+
+}, { collection: 'Equipos' }
+);
 
 EquipoSchema.methods.toJSON = function() {
     const { __v, ...data  } = this.toObject();

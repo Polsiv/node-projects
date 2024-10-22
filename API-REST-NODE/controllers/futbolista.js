@@ -1,4 +1,5 @@
 const { Futbolista } = require("../models");
+const { Equipo } = require("../models/");
 
 const obtenerFutbolistas = async (req, res = response) => {
   const {desde = 0 } = req.query;
@@ -31,7 +32,43 @@ const obtenerFutbolistaId = async (req, res = response) => {
     }  
 };
 
+const crearFutbolistaPost = async (req, res = response) => {
+
+
+  const body = req.body;
+  errorEquipo = ""
+  try {
+    
+    const equipoDB = await Equipo.findById(body.id_equipo);
+
+    if (!equipoDB) {
+      return res
+      //.status(400)
+      .json({
+        Ok: false,
+        msg: `El Equipo ${body.equiponombre}, No existe`,
+      });
+    }
+  
+  
+    const futbolista = new Futbolista(body);
+
+
+    // Guardar DB
+    await futbolista.save();
+
+    res
+    //.status(201)
+    .json({ Ok: true, msg: 'Futbolista Insertado', resp: futbolista});
+  } catch (error) {
+    //console.log("ERROR:INSERTAR",error);
+
+
+    res.json({ Ok: false, msg: errorEquipo, resp: error });
+  }
+};
+
 
 module.exports = {
-    obtenerFutbolistas, obtenerFutbolistaId
+    obtenerFutbolistas, obtenerFutbolistaId, crearFutbolistaPost
   };

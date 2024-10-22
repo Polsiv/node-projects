@@ -23,7 +23,7 @@ class Server {
         }
 
         //Aqui me conecto a la BD
-        this.dbConnectionMySql();
+        // this.dbConnectionMySql(); EN LA JUEGA QUE ESTE ES LA CONEXION A LA BASE DE DATOS LOCAL HPTA
 
         this.dbConnecionMongo();
 

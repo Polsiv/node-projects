@@ -110,34 +110,6 @@ const borrarEquipoDelete = async (req, res = response) => {
 
     }
 
-
-    /*
-    const [total, multimediaheroe] = await Promise.all([
-      MultimediaHeroe.countDocuments({ IdHeroe: id }),
-      MultimediaHeroe.find({ IdHeroe: id})
-        //.limit(Number(limite)),
-    ]);
-
-
-    if (total > 0){
-      return res
-      //.status(400)
-      .json({
-        Ok: false,
-        msg: `El Heroe tiene (${total}) multimedias asignadas y no puede ser borrado....`,
-      });
-    }
-    else{
-      const heroeBorrado = await Heroe.findByIdAndDelete(id);
-
-
-      res.json({ Ok: true, resp: heroeBorrado });
-
-
-    }
-    */
-
-
     const equipoBorrado = await Equipo.findByIdAndDelete(id);
 
 

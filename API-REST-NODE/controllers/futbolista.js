@@ -69,6 +69,67 @@ const crearFutbolistaPost = async (req, res = response) => {
 };
 
 
+const actualizarFutbolistaPut = async (req, res = response) => {
+  const { id } = req.params;
+
+  const data  = req.body;
+
+
+  try {
+   
+    if (data.nombre) {
+        const equipoDB = await Futbolista.findOne({ nombre: data.nombre });
+
+
+        if (equipoDB) {
+          return res.status(400).json({
+            msg: `El Equipo ${data.nombre}, ya existe en la BD`,
+          });
+        }
+    }
+   
+    const futbolista = await Futbolista.findByIdAndUpdate(id, data, {
+      new: true,
+    });
+
+
+    res.json({ Ok: true, msg: 'Futoblista actuaizado Actualizado', resp: futbolista });
+  } catch (error) {
+    console.log("ERROR_MODIFICAR",error);
+    res.json({ Ok: false, resp: error });
+  }
+};
+
+
+const borrarFutbolistaDelete = async (req, res = response) => {
+  const { id } = req.params;
+  try {
+
+
+    const equipo = await Futbolista.findById(id);
+
+
+    if (!equipo){
+      return res.status(400).json({
+        msg: `El futbolista con ${id}, no existe en la BD`,
+      });
+
+
+    }
+
+    const futbolistaBorrado = await Futbolista.findByIdAndDelete(id);
+
+
+    res.json({ Ok: true,msg:"Futbolista borrado" ,resp: futbolistaBorrado });
+
+
+  } catch (error) {
+    console.log("ERROR_BORRADO",error);
+    res.json({ Ok: false, resp: error });
+  }
+};
+
+
 module.exports = {
-    obtenerFutbolistas, obtenerFutbolistaId, crearFutbolistaPost
+    obtenerFutbolistas, obtenerFutbolistaId, crearFutbolistaPost, actualizarFutbolistaPut, borrarFutbolistaDelete
   };

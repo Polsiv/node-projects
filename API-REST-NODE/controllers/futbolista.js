@@ -33,41 +33,29 @@ const obtenerFutbolistaId = async (req, res = response) => {
 };
 
 const crearFutbolistaPost = async (req, res = response) => {
-
-
   const body = req.body;
   errorEquipo = ""
   try {
-    
     const equipoDB = await Equipo.findById(body.id_equipo);
-
     if (!equipoDB) {
       return res
       //.status(400)
       .json({
         Ok: false,
-        msg: `El Equipo ${body.equiponombre}, No existe`,
+        msg: `El Equipo ${body.nombre}, No existe`,
       });
     }
-  
-  
     const futbolista = new Futbolista(body);
-
-
     // Guardar DB
     await futbolista.save();
-
     res
     //.status(201)
     .json({ Ok: true, msg: 'Futbolista Insertado', resp: futbolista});
   } catch (error) {
     //console.log("ERROR:INSERTAR",error);
-
-
     res.json({ Ok: false, msg: errorEquipo, resp: error });
   }
 };
-
 
 const actualizarFutbolistaPut = async (req, res = response) => {
   const { id } = req.params;
@@ -75,12 +63,9 @@ const actualizarFutbolistaPut = async (req, res = response) => {
   const data  = req.body;
 
 
-  try {
-   
+  try { 
     if (data.nombre) {
         const equipoDB = await Futbolista.findOne({ nombre: data.nombre });
-
-
         if (equipoDB) {
           return res.status(400).json({
             msg: `El Equipo ${data.nombre}, ya existe en la BD`,
@@ -92,7 +77,6 @@ const actualizarFutbolistaPut = async (req, res = response) => {
       new: true,
     });
 
-
     res.json({ Ok: true, msg: 'Futoblista actuaizado Actualizado', resp: futbolista });
   } catch (error) {
     console.log("ERROR_MODIFICAR",error);
@@ -100,29 +84,17 @@ const actualizarFutbolistaPut = async (req, res = response) => {
   }
 };
 
-
 const borrarFutbolistaDelete = async (req, res = response) => {
   const { id } = req.params;
   try {
-
-
     const equipo = await Futbolista.findById(id);
-
-
     if (!equipo){
       return res.status(400).json({
         msg: `El futbolista con ${id}, no existe en la BD`,
       });
-
-
     }
-
     const futbolistaBorrado = await Futbolista.findByIdAndDelete(id);
-
-
     res.json({ Ok: true,msg:"Futbolista borrado" ,resp: futbolistaBorrado });
-
-
   } catch (error) {
     console.log("ERROR_BORRADO",error);
     res.json({ Ok: false, resp: error });

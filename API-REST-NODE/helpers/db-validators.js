@@ -15,10 +15,18 @@ const existeFutbolistaPorId = async (id) => {
     }
 };
 
-
+const existeFutbolistaPorIdEquipo = async (id) => {
+    const [total, equipos] = await Promise.all([
+        Futbolista.countDocuments({id_equipo:id}),
+        Futbolista.find({id_equipo:id})]);
+    
+    if (total>0) {
+        throw new Error(`No se puede borrar el equipo, el equipo tiene ${total} jugadores`);
+    }
+};
 
 module.exports = {
-    existeEquipoPorId, existeFutbolistaPorId
+    existeEquipoPorId, existeFutbolistaPorId, existeFutbolistaPorIdEquipo
 };
 
 

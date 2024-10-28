@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos")
-const { existeEquipoPorId }= require("../helpers/db-validators")
+const { existeEquipoPorId, existeFutbolistaPorIdEquipo }= require("../helpers/db-validators")
 const { obtenerEquiposGet, obtenerEquipoGet, crearEquipoPost , actualizarEquipoPut, borrarEquipoDelete} = require("../controllers/equipo")
 
 
@@ -37,7 +37,8 @@ router.delete('/:id',[
     //validarJWT,
     //esAdminRole,
     check('id', 'No es un id de Mongo válido').isMongoId(),
-    //check('id').custom( existeHeroePorId ),
+    check('id').custom(existeEquipoPorId),
+    check('id').custom(existeFutbolistaPorIdEquipo),
     validarCampos,
 ],borrarEquipoDelete);
 

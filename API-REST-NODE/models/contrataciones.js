@@ -21,7 +21,7 @@ const contratacionSchema = new Schema({
         required: false,  // Puede ser opcional si es un contrato en curso
     },
 }, {
-    collection: 'historialFutbolista', // Nombre de la colección en MongoDB
+    collection: 'contrataciones', // Nombre de la colección en MongoDB
 });
 
 const Contratacion = model('contrataciones', contratacionSchema);

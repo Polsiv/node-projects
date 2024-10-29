@@ -42,7 +42,7 @@ const crearFutbolistaPost = async (req, res = response) => {
       //.status(400)
       .json({
         Ok: false,
-        msg: `El Equipo ${body.nombre}, No existe`,
+        msg: `El Equipo No existe`,
       });
     }
     const futbolista = new Futbolista(body);

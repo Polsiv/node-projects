@@ -1,5 +1,6 @@
 const { Equipo } = require("../models/");
-const { Futbolista } = require("../models/")
+const { Futbolista } = require("../models/");
+const { Contratacion } = require("../models/");
 
 const existeEquipoPorId = async (id) => {
     const existeEquipo = await Equipo.findById(id);
@@ -19,14 +20,22 @@ const existeFutbolistaPorIdEquipo = async (id) => {
     const [total, equipos] = await Promise.all([
         Futbolista.countDocuments({id_equipo:id}),
         Futbolista.find({id_equipo:id})]);
-    
     if (total>0) {
-        throw new Error(`No se puede borrar el equipo, el equipo tiene ${total} jugadores`);
+        throw new Error(`No se puede borrar el equipo, el equipo tiene ${total} jugadores activos`);
+    }
+};
+
+const existeContratoPorIdFutbolista = async (id) => {
+    const [total, futbolistas] = await Promise.all([
+        Contratacion.countDocuments({id_futbolista:id}),
+        Contratacion.find({id_futbolista:id})]); 
+    if (total>0) {
+        throw new Error(`No se puede borrar el jugador, el jugador tiene contrato activo`);
     }
 };
 
 module.exports = {
-    existeEquipoPorId, existeFutbolistaPorId, existeFutbolistaPorIdEquipo
+    existeEquipoPorId, existeFutbolistaPorId, existeFutbolistaPorIdEquipo, existeContratoPorIdFutbolista
 };
 
 

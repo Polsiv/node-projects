@@ -18,7 +18,6 @@ const FutbolistaSchema = Schema({
         default: true,
         required: true
     },
-  
     id_equipo: {
         type: Schema.Types.ObjectId,
         ref: 'Equipo',
@@ -35,7 +34,4 @@ FutbolistaSchema.methods.toJSON = function() {
     return data;
 }
 
-
-
 module.exports = model('Futbolista', FutbolistaSchema);
-

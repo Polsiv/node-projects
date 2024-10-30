@@ -1,13 +1,12 @@
-const { Router } = require('express');
-const { check } = require("express-validator");
-const { obtenerFutbolistas, obtenerFutbolistaId, crearFutbolistaPost, actualizarFutbolistaPut, borrarFutbolistaDelete } = require('../controllers/futbolista');
+const { Router } = require('express')
+const { check } = require("express-validator")
+const { obtenerFutbolistas, obtenerFutbolistaId, crearFutbolistaPost, actualizarFutbolistaPut, borrarFutbolistaDelete } = require('../controllers/futbolista')
 const { validarCampos } = require("../middlewares/validar-campos")
 const { existeFutbolistaPorId, existeContratoPorIdFutbolista }= require("../helpers/db-validators")
 
 const router = Router();
 
 router.get('/', obtenerFutbolistas );
-router.delete('/:id', borrarFutbolistaDelete)
 
 router.get('/:id',
     [
@@ -16,8 +15,6 @@ router.get('/:id',
     validarCampos,
     ],
     obtenerFutbolistaId);
-
-router.put('/:id', actualizarFutbolistaPut)
 
 router.post('/', [
         //validarJWT,

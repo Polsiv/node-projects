@@ -1,12 +1,15 @@
-var express = require('express');
-var router = express.Router();
+var Router = require('express');
+const { check } = require("express-validator");
+const { validarCampos } = require("../middlewares/validar-campos")
+const { existeFutbolistaPorId, existeContratoPorIdFutbolista }= require("../helpers/db-validators")
+const {obtenerContrataciones, obtenerContratacionId, crearContratacionPost, actualizarContratacionPut, borrarContratacionDelete } = require('../controllers/contrataciones')
 
-const {postContrat, getContrat, getByIdContrat, updateByIdContrat, deleteByIdContrat} = require('../controllers/contrataciones')
+const router = Router();
 
-router.post('/', postContrat)
-router.get('/', getContrat)
-router.get('/:id', getByIdContrat)
-router.put('/:id', updateByIdContrat)
-router.delete('/:id', deleteByIdContrat)
+router.get('/', obtenerContrataciones)
+router.get('/:id', obtenerContratacionId)
+router.put('/:id', actualizarContratacionPut)
+router.post('/', crearContratacionPost)
+router.delete('/:id', borrarContratacionDelete)
 
 module.exports = router

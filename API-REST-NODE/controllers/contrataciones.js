@@ -1,53 +1,110 @@
-const express = require('express');
-const Contratacion = require('../models/contrataciones');  
+const { Futbolista } = require("../models/");
+const { Equipo } = require("../models/");
+const { Contratacion } = require("../models/");
 
-const postContrat = async (req, res) => {
+const obtenerContrataciones = async (req, res = response) => {
+  const {desde = 0 } = req.query;
+
+  try {
+    const [total, contrataciones] = await Promise.all([
+      Contratacion.countDocuments(),
+      Contratacion.find({})
+        .skip(Number(desde))
+        .sort({nombre:1})
+    ]);
+    
+    res.json({ Ok: true, total: total, resp: contrataciones });
+    
+  } catch (error) {
+    console.log("ERROR",error);
+    res.json({ Ok: false, resp: error });
+  }
+};
+
+
+const obtenerContratacionId = async (req, res = response) => {
+    const { id } = req.params;
     try {
-        const contratacion = new Contratacion(req.body);
-        const contratacionGuardada = await contratacion.save();
-        res.status(201).json(contratacionGuardada);
+      const equipo = await Contratacion.findById(id);
+       
+      res.json({ Ok: true, resp: equipo });
     } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-}
+      res.json({ Ok: false, resp: error });
+    }  
+};
 
-const getContrat = async (req, res) => {
-    try {
-        const contrataciones = await Contratacion.find().populate('id_equipo id_futbolista');
-        res.json(contrataciones);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+const crearContratacionPost = async (req, res = response) => {
+  const body = req.body;
+  errorEquipo = ""
+  try {
+    const equipoDB = await Equipo.findById(body.id_equipo);
+    if (!equipoDB) {
+      return res
+      //.status(400)
+      .json({
+        Ok: false,
+        msg: `El Equipo No existe`,
+      });
     }
-}
-
-const getByIdContrat = async (req, res) => {
-    try {
-        const contratacion = await Contratacion.findById(req.params.id).populate('id_equipo id_futbolista');
-        if (!contratacion) return res.status(404).json({ message: 'Contratación no encontrada' });
-        res.json(contratacion);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+    const futbolistaDB = await Futbolista.findById(body.id_futbolista);
+    if (!futbolistaDB) {
+      return res
+      //.status(400)
+      .json({
+        Ok: false,
+        msg: `El futbolista No existe`,
+      });
     }
-}
 
-const updateByIdContrat = async (req, res) => {
-    try {
-        const contratacionActualizada = await Contratacion.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-        if (!contratacionActualizada) return res.status(404).json({ message: 'Contratación no encontrada' });
-        res.json(contratacionActualizada);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
+
+    const contratacion = new Contratacion(body);
+    // Guardar DB
+    await contratacion.save();
+    res
+    //.status(201)
+    .json({ Ok: true, msg: 'Contratacion Insertado', resp: contratacion});
+  } catch (error) {
+    //console.log("ERROR:INSERTAR",error);
+    res.json({ Ok: false, msg: errorEquipo, resp: error });
+  }
+};
+
+const actualizarContratacionPut = async (req, res = response) => {
+  const { id } = req.params;
+
+  const data  = req.body;
+
+
+  try { 
+    const contratacion = await Contratacion.findByIdAndUpdate(id, data, {
+      new: true,
+    });
+
+    res.json({ Ok: true, msg: 'contratacion actuaizado Actualizado', resp: contratacion });
+  } catch (error) {
+    console.log("ERROR_MODIFICAR",error);
+    res.json({ Ok: false, resp: error });
+  }
+};
+
+const borrarContratacionDelete = async (req, res = response) => {
+  const { id } = req.params;
+  try {
+    const equipo = await Contratacion.findById(id);
+    if (!equipo){
+      return res.status(400).json({
+        msg: `El contratacion con ${id}, no existe en la BD`,
+      });
     }
-}
+    const contratacionBorrado = await Contratacion.findByIdAndDelete(id);
+    res.json({ Ok: true,msg:"Contratacion borrado" ,resp: contratacionBorrado });
+  } catch (error) {
+    console.log("ERROR_BORRADO",error);
+    res.json({ Ok: false, resp: error });
+  }
+};
 
-const deleteByIdContrat = async (req, res) => {
-    try {
-        const contratacionEliminada = await Contratacion.findByIdAndDelete(req.params.id);
-        if (!contratacionEliminada) return res.status(404).json({ message: 'Contratación no encontrada' });
-        res.status(204).send(); // No hay contenido que devolver
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}
 
-module.exports = {postContrat, getContrat, getByIdContrat, updateByIdContrat, deleteByIdContrat}
+module.exports = {
+    obtenerContrataciones, obtenerContratacionId, crearContratacionPost, actualizarContratacionPut, borrarContratacionDelete
+  };

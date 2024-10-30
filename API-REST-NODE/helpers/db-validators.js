@@ -20,7 +20,7 @@ const existeFutbolistaPorIdEquipo = async (id) => {
         Futbolista.countDocuments({id_equipo:id}),
         Futbolista.find({id_equipo:id})]);
     if (total>0) {
-        throw new Error(`No se puede borrar el equipo, el equipo tiene ${total} jugadores activos`);
+        throw new Error(`No se puede borrar el equipo, el equipo tiene ${total} jugadores activos, ${equipos}`);
     }
 };
 
@@ -36,9 +36,20 @@ const existeContratoPorIdFutbolista = async (id) => {
 };
 
 
+const existeContratoPorIdEquipo = async (id) => {
+    const [total, futbolistas] = await Promise.all([
+        Contratacion.countDocuments({ id_equipo: id }),
+        Contratacion.find({ id_equipo: id })
+    ]);
+
+    if (total > 0) {
+        throw new Error(`No se puede borrar el equipo ya que tiene un contrato activo`);
+    }
+};
+
 
 module.exports = {
-    existeEquipoPorId, existeFutbolistaPorId, existeFutbolistaPorIdEquipo, existeContratoPorIdFutbolista
+    existeEquipoPorId, existeFutbolistaPorId, existeFutbolistaPorIdEquipo, existeContratoPorIdFutbolista, existeContratoPorIdEquipo
 };
 
 

@@ -7,7 +7,6 @@ try {
     const result = await session.run('MATCH (p:Person) RETURN p');
     const personas = result.records.map(record => record.get('p').properties);
 
-
     res.json({
         ok: true,
         data: personas,

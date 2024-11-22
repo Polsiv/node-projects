@@ -1,16 +1,16 @@
 const instance = require('../../models/neo4j/deportista');
 
 const agregarDeportista = async (req, res) => {
-    const { nombres, apellidos, fecha_nacimiento, partidos } = req.body;
+    const { nombres, apellidos, fecha_nacimiento, titulos, partidos } = req.body;
     try {
-        const deportista = await instance.create('Deportista', { 
-            nombres, 
-            apellidos, 
+        const payload = {
+            nombres,
+            apellidos,
             fecha_nacimiento,
-            partidos
-        });
-
-        console.log('Deportista Created:', deportista.toJson());
+            ...(titulos !== undefined && { titulos }), // Only include if defined
+            ...(partidos !== undefined && { partidos }) // Only include if defined
+        };
+        const deportista = await instance.create('Deportista', payload);
 
         res.status(201).json({
             ok: true,

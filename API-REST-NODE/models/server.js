@@ -24,7 +24,9 @@ null;
         }
 
         this.pathsNeo4j = {
-            deportistas: '/api/neo/deportistas',
+            
+            deportistas_futbol: '/api/neo/deportistas_futbol/',
+            deportistas_ciclismo: '/api/neo/deportistas_ciclismo/',
             equipos: '/api/neo/equipos',
             contratacion: '/api/neo/contrataciones',
             pais: '/api/neo/paises'
@@ -34,7 +36,7 @@ null;
         //Aqui me conecto a la BD
         // this.dbConnectionMySql(); EN LA JUEGA QUE ESTE ES LA CONEXION A LA BASE DE DATOS LOCAL HPTA
 
-        this.dbConnecionMongo();
+        //this.dbConnecionMongo();
 
         //Middlewares
         this.middlewares();
@@ -58,8 +60,9 @@ null;
 
     routes() {
     
-    this.app.use(this.pathsNeo4j.deportistas, require('../routes/neodeportista'))
-
+    this.app.use(this.pathsNeo4j.deportistas_futbol, require('../routes/neo4j/deportistafutbol'))
+    this.app.use(this.pathsNeo4j.deportistas_ciclismo, require('../routes/neo4j/deportistacliclismo'))
+    
     // outer routes
     this.app.use(this.pathsMySql.persona, require('../routes/persona'));
     this.app.use(this.pathsMySql.usuario, require('../routes/usuario'));

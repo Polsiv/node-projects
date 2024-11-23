@@ -1,5 +1,5 @@
-const { Sequelize, DataTypes } = require('sequelize');
 const { bdmysql } = require('../database/MariaDbConnection');
+const { DataTypes } = require('sequelize');
 
 const Ciudades = bdmysql.define('ciudad', {
     'id_ciudad': {

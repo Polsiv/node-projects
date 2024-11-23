@@ -25,8 +25,8 @@ null;
 
         this.pathsNeo4j = {
             
-            deportistas_futbol: '/api/neo/deportistas_futbol/',
-            deportistas_ciclismo: '/api/neo/deportistas_ciclismo/',
+            deportistas_futbol: '/api/neo/futbol/',
+            deportistas_ciclismo: '/api/neo/ciclismo/',
             equipos: '/api/neo/equipos',
             contratacion: '/api/neo/contrataciones',
             pais: '/api/neo/paises'
@@ -62,6 +62,7 @@ null;
     
     this.app.use(this.pathsNeo4j.deportistas_futbol, require('../routes/neo4j/deportistafutbol'))
     this.app.use(this.pathsNeo4j.deportistas_ciclismo, require('../routes/neo4j/deportistacliclismo'))
+    //this.app.use(this.pathsNeo4j.pais, require('../routes/neo4j/pais'))
     
     // outer routes
     this.app.use(this.pathsMySql.persona, require('../routes/persona'));

@@ -41,7 +41,6 @@ function filtroCiclista(collection){
 function filtroEquiposFutbol(collection) {
     const equipos = [];
     for (const equipo of collection) {
-        console.log(equipo.get('_id'))
         const payload = {
             id: equipo.get('id_equipo'),
             nombre: equipo.get('nombre'),
@@ -56,7 +55,6 @@ function filtroEquiposFutbol(collection) {
 function filtroEquiposCiclismo(collection) {
     const equipos = [];
     for (const equipo of collection) {
-        console.log(equipo.get('_id'))
         const payload = {
             id: equipo.get('id_equipo'),
             nombre: equipo.get('nombre'),

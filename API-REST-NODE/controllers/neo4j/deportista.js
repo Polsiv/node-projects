@@ -1,29 +1,26 @@
 const Deportista = require('../../models/neo4j/deportista');
-const { tratamientoFutbolista, tratamientoCiclista } = require('../../helpers/filtros')
+const { filtroFutbolista, filtroCiclista } = require('../../helpers/filtros')
 
 const agregarDeportista = async (req, res) => {
     const { nombres, apellidos, fecha_nacimiento, sexo, partidos, titulos, deporte } = req.body;
     try {
         const payload = {
-            nombres,
-            apellidos,
-            fecha_nacimiento,
-            sexo,
-            deporte,
+            nombres, apellidos, fecha_nacimiento, sexo, deporte,
+            // include if defined (ONLY)
             ...(titulos !== undefined && { titulos }), 
-            ...(partidos !== undefined && { partidos }) // include if defined (ONLY)
+            ...(partidos !== undefined && { partidos }) 
         };
-        const deportista = await Deportista.create(payload);
+        await Deportista.create(payload);
 
         res.status(201).json({
             ok: true, 
-            data: deportista.toJson(),
+            msg: "Deporista created!",
         });
     } catch (error) {
         console.error('Error adding Deportista:', error);
         res.status(500).json({
             ok: false,
-            message: 'Failed to add Deportista',
+            msg: 'Failed to add Deportista',
         });
     }
 };
@@ -32,7 +29,7 @@ const agregarDeportista = async (req, res) => {
 const getFutbolistas = async (req, res) => {
     try {
         const collection = await Deportista.all({ deporte: 'futbol' });
-        const deportistas = tratamientoFutbolista(collection);
+        const deportistas = filtroFutbolista(collection);
         res.status(200).json({
             ok: true,
             data: deportistas,
@@ -41,16 +38,15 @@ const getFutbolistas = async (req, res) => {
         console.error('Error al traer los futbolistas', error);
         res.status(500).json({
             ok: false,
-            message: 'Error al traer los futbolistas',
+            msg: 'Error al traer los futbolistas',
         });
     }
 };
 
-
 const getCiclistas = async (req, res) => {
     try {
         const collection = await Deportista.all({ deporte: 'ciclismo' });
-        const deportistas = tratamientoCiclista(collection);
+        const deportistas = filtroCiclista(collection);
         res.status(200).json({
             ok: true,
             data: deportistas,
@@ -59,7 +55,7 @@ const getCiclistas = async (req, res) => {
         console.error('Error al traer los ciclistas', error);
         res.status(500).json({
             ok: false,
-            message: 'Error al traer los ciclistas',
+            msg: 'Error al traer los ciclistas'
         });
     }
 };

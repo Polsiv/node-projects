@@ -1,6 +1,7 @@
 const instance = require('../../database/Neo4JDbConnection')
 
-const deportista = instance.model('Deportista', {
+
+const Deportista = instance.model('Deportista', {
     nombres: {
         type: 'string',
         required: true,
@@ -69,4 +70,4 @@ const deportista = instance.model('Deportista', {
 
 });
 
-module.exports = deportista;
+module.exports = Deportista;

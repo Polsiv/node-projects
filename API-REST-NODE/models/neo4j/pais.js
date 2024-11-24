@@ -1,6 +1,6 @@
 const instance = require('../../database/Neo4JDbConnection')
 
-const pais = instance.model('Pais', {
+const Pais = instance.model('Pais', {
     nombre: {
         type: 'string',
         required: true,
@@ -22,7 +22,15 @@ const pais = instance.model('Pais', {
         relationship: 'lugar_de_origen',
         direction: 'out',
         eager: 'true'
+    },
+
+    equipos: {
+        type: 'nodes',
+        target: 'Equipo',
+        relationship: 'lugar_de_origen',
+        direction: 'out',
+        eager: 'true'
     }
 });
 
-module.exports = pais;
+module.exports = Pais;

@@ -25,17 +25,18 @@ null;
 
         this.pathsNeo4j = {
             
-            deportistas_futbol: '/api/neo/futbol/',
-            deportistas_ciclismo: '/api/neo/ciclismo/',
-            equipos: '/api/neo/equipos',
+            deportistas_futbol: '/api/neo/futbol/deportistas/',
+            deportistas_ciclismo: '/api/neo/ciclismo/deportistas/',
+            equipos_futbol: '/api/neo/futbol/equipos',
+            equipos_ciclismo: '/api/neo/ciclismo/equipos',
             contratacion: '/api/neo/contrataciones',
             pais: '/api/neo/paises'
 
         }
 
-        //Aqui me conecto a la BD
         // this.dbConnectionMySql(); EN LA JUEGA QUE ESTE ES LA CONEXION A LA BASE DE DATOS LOCAL HPTA
-
+        
+        //Aqui me conecto a la BD
         //this.dbConnecionMongo();
 
         //Middlewares
@@ -60,17 +61,19 @@ null;
 
     routes() {
     
-    this.app.use(this.pathsNeo4j.deportistas_futbol, require('../routes/neo4j/deportistafutbol'))
-    this.app.use(this.pathsNeo4j.deportistas_ciclismo, require('../routes/neo4j/deportistacliclismo'))
-    //this.app.use(this.pathsNeo4j.pais, require('../routes/neo4j/pais'))
+        this.app.use(this.pathsNeo4j.deportistas_futbol, require('../routes/neo4j/deportistafutbol'))
+        this.app.use(this.pathsNeo4j.deportistas_ciclismo, require('../routes/neo4j/deportistacliclismo'))
+        this.app.use(this.pathsNeo4j.equipos_futbol, require('../routes/neo4j/equipofutbol'))
+        this.app.use(this.pathsNeo4j.equipos_ciclismo, require('../routes/neo4j/equipociclismo'))
+        this.app.use(this.pathsNeo4j.pais, require('../routes/neo4j/pais'))
     
-    // outer routes
-    this.app.use(this.pathsMySql.persona, require('../routes/persona'));
-    this.app.use(this.pathsMySql.usuario, require('../routes/usuario'));
-    this.app.use(this.pathsMySql.ciudad, require('../routes/ciudad'));
-    this.app.use(this.pathsMongo.equipos, require('../routes/equipo'));
-    this.app.use(this.pathsMongo.futbolistas, require('../routes/futbolista'));
-    this.app.use(this.pathsMongo.contrataciones, require('../routes/contrataciones'));
+        // outer routes
+        this.app.use(this.pathsMongo.futbolistas, require('../routes/futbolista'));
+        this.app.use(this.pathsMongo.equipos, require('../routes/equipo'));
+        this.app.use(this.pathsMongo.contrataciones, require('../routes/contrataciones'));
+        this.app.use(this.pathsMySql.usuario, require('../routes/usuario'));
+        this.app.use(this.pathsMySql.persona, require('../routes/persona'));
+        this.app.use(this.pathsMySql.ciudad, require('../routes/ciudad'));
     }
 
     middlewares() {

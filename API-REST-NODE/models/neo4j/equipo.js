@@ -1,6 +1,6 @@
 const instance = require('../../database/Neo4JDbConnection')
 
-const equipo = instance.model('Equipo', {
+const Equipo = instance.model('Equipo', {
     nombre: {
         type: 'string',
         required: true,
@@ -43,7 +43,23 @@ const equipo = instance.model('Equipo', {
     asignado_a: {
         type: 'relationship',
         target: 'Deporte',
-        relationship: 'conformado_por',
+        relationship: 'asignado_a',
+        direction: 'out',
+        eager: 'true'
+    },
+
+    deporte: {
+        type: 'node',
+        target: 'Deporte',
+        relationship: 'fundado_en',
+        direction: 'out',
+        eager: 'true'
+    },
+
+    pais: {
+        type: 'node',
+        target: 'Pais',
+        relationship: 'fundado_en',
         direction: 'out',
         eager: 'true'
     },
@@ -56,7 +72,6 @@ const equipo = instance.model('Equipo', {
         direction: 'out',
         eager: 'true'
     }
-
 });
 
-module.exports = equipo;
+module.exports = Equipo;

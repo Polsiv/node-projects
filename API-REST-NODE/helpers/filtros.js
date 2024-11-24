@@ -1,4 +1,4 @@
-function tratamientoFutbolista(collection){
+function filtroFutbolista(collection){
     return collection.map(element => {
         const fechaNacimiento = element.get('fecha_nacimiento');
         const dia = fechaNacimiento.day.low;
@@ -17,7 +17,7 @@ function tratamientoFutbolista(collection){
     });
 }
 
-function tratamientoCiclista(collection){
+function filtroCiclista(collection){
     return collection.map(element => {
         const fechaNacimiento = element.get('fecha_nacimiento');
         const dia = fechaNacimiento.day.low;
@@ -36,4 +36,19 @@ function tratamientoCiclista(collection){
     });
 }
 
-module.exports = {tratamientoFutbolista, tratamientoCiclista}
+function filtroEquiposFutbol(collection) {
+    const equipos = [];
+    for (const equipo of collection) {
+        console.log(equipo.get('_id'))
+        const payload = {
+            nombre: equipo.get('nombre'),
+            titulos: equipo.get('titulos').low,
+            estadio: equipo.get('estadio')
+        }
+        equipos.push(payload)
+    }
+    
+    return equipos
+}
+
+module.exports = {filtroFutbolista, filtroCiclista, filtroEquiposFutbol}

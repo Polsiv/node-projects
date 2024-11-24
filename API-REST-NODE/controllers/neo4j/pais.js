@@ -1,29 +1,49 @@
-const instance = require('../../models/neo4j/pais');
+const Pais = require('../../models/neo4j/pais');
 
-const agregarPais = async (req, res) => {
-    const { nombres, apellidos, fecha_nacimiento, titulos, partidos } = req.body;
+const getPaises = async (req, res) => {
     try {
-        const payload = {
-            nombres,
-            apellidos,
-            fecha_nacimiento,
-            ...(titulos !== undefined && { titulos }), 
-            ...(partidos !== undefined && { partidos }) // include if defined (ONLY)
-        };
-        const deportista = await instance.create('Deportista', payload);
-
-        res.status(201).json({
+        const collection = await Pais.all();
+        const paises = collection.map(pais => pais.get('nombre'));
+        res.status(200).json({
             ok: true,
-            data: deportista.toJson(),
+            data: paises,
         });
     } catch (error) {
-        console.error('Error adding Deportista:', error);
+        console.error('Error al traer los paises', error);
         res.status(500).json({
             ok: false,
-            message: 'Failed to add Deportista',
+            message: 'Error al traer los paises',
         });
     }
 };
 
+const agregarPais = async (req, res) => {
 
-module.exports = { agregarDeportista };
+    const { nombre } = req.body;
+    try {
+
+        await Pais.create({nombre});
+        res.status(200).json({
+            ok: true,
+            msg: 'Country created!'
+        });
+        
+    } catch (error) {
+        console.error('error adding Pais:', error);
+
+        if (error.code === "Neo.ClientError.Schema.ConstraintValidationFailed") {
+            res.status(400).json({
+                ok: false,
+                msg: 'Country already exists!'
+            });
+        } else {
+
+        res.status(500).json({
+            ok: false,
+            message: 'Falied to add Pais'
+            })
+        }
+    }
+}
+
+module.exports = { getPaises, agregarPais };

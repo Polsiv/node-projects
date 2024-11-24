@@ -1,6 +1,13 @@
 const instance = require('../../database/Neo4JDbConnection')
+const { v4: uuidv4 } = require('uuid');
 
-instance.model('Contratacion', {
+const Contratacion = instance.model('Contratacion', {
+    id_contratacion: {
+        type: 'string',
+        required: true,
+        primary: true, 
+        default: () => uuidv4(), 
+    },
     fecha_inicio: {
         type: 'date',
         required: true,
@@ -37,4 +44,4 @@ instance.model('Contratacion', {
 
 });
 
-module.exports = instance;
+module.exports = Contratacion;

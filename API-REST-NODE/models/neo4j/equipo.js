@@ -1,6 +1,13 @@
 const instance = require('../../database/Neo4JDbConnection')
+const { v4: uuidv4 } = require('uuid');
 
 const Equipo = instance.model('Equipo', {
+    id_equipo: {
+        type: 'string',
+        required: true,
+        primary: true, 
+        default: () => uuidv4(), 
+    },
     nombre: {
         type: 'string',
         required: true,

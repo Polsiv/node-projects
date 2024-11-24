@@ -1,7 +1,7 @@
 const Equipo = require('../../models/neo4j/equipo')
 const Deporte = require('../../models/neo4j/deporte')
 const Pais = require('../../models/neo4j/pais')
-const {filtroEquiposFutbol} = require('../../helpers/filtros')
+const { filtroEquiposFutbol, filtroEquiposCiclismo } = require('../../helpers/filtros')
 
 const agregarEquipo = async (req, res) => {
 
@@ -14,7 +14,6 @@ const agregarEquipo = async (req, res) => {
         };
         
         // creation and relationships
-
         const deporte_asignado = await Deporte.first({nombre: deporte})
         const equipo = await Equipo.create(payload);
         const pais_origen = await Pais.first({nombre: pais})
@@ -61,8 +60,29 @@ const getEquiposFutbol = async (req, res) => {
     }
 }
 
-const updateEquipos = async (req, res) => {
+const getEquiposCiclismo = async (req, res) => {
+    try {
 
+        const deporte = await Deporte.first({nombre: 'Ciclismo'})
+        const equipos = filtroEquiposCiclismo(deporte.get('equipos'))
+
+        res.status(200).json({
+            ok: true,
+            msg: equipos
+        });
+    } catch (error) {
+
+        console.error("Error al traer equipos de ciclismo", error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al traer los los equipos Ciclismo'
+        });
+
+    }
 }
 
-module.exports = { agregarEquipo, getEquiposFutbol }
+const updateEquipos = async (req, res) => {
+    const lol = [];
+}
+
+module.exports = { agregarEquipo, getEquiposFutbol, getEquiposCiclismo }

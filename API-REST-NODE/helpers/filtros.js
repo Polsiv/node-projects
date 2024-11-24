@@ -7,6 +7,7 @@ function filtroFutbolista(collection){
         const partidos = element.get('partidos').low;
 
         return {
+            id: element.get('id_deportista'),
             nombres: element.get('nombres'),
             apellidos: element.get('apellidos'),
             fecha_nacimiento: `${dia}-${mes}-${year}`,
@@ -26,6 +27,7 @@ function filtroCiclista(collection){
         const titulos = element.get('titulos').low;
 
         return {
+            id: element.get('id_deportista'),
             nombres: element.get('nombres'),
             apellidos: element.get('apellidos'),
             fecha_nacimiento: `${dia}-${mes}-${year}`,
@@ -41,14 +43,29 @@ function filtroEquiposFutbol(collection) {
     for (const equipo of collection) {
         console.log(equipo.get('_id'))
         const payload = {
+            id: equipo.get('id_equipo'),
             nombre: equipo.get('nombre'),
             titulos: equipo.get('titulos').low,
             estadio: equipo.get('estadio')
         }
         equipos.push(payload)
     }
-    
     return equipos
 }
 
-module.exports = {filtroFutbolista, filtroCiclista, filtroEquiposFutbol}
+function filtroEquiposCiclismo(collection) {
+    const equipos = [];
+    for (const equipo of collection) {
+        console.log(equipo.get('_id'))
+        const payload = {
+            id: equipo.get('id_equipo'),
+            nombre: equipo.get('nombre'),
+            titulos: equipo.get('titulos').low,
+            especialidad: equipo.get('especialidad')
+        }
+        equipos.push(payload)
+    }
+    return equipos
+}
+
+module.exports = {filtroFutbolista, filtroCiclista, filtroEquiposFutbol, filtroEquiposCiclismo}

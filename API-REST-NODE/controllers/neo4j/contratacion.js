@@ -59,16 +59,33 @@ const createContratacion = async (req, res) => {
             fecha_finalizacion: fecha_finalizacion,
             valor: valor
         }
-        const contratacion = await Contratacion.create(payload);
         const deportista = await Deportista.first({id_deportista: id_deportista})
         const equipo = await Equipo.first({id_equipo: id_equipo})
+        const deporte_equipo = equipo.get('deporte')
+     
+        if (deportista.get('deporte') !== deporte_equipo.get('nombre')){
+            return res.status(400).json({
+                ok: false,
+                msg: 'El deporte del equipo y el deporte del deportista DEBEN coincidir'
+            });
+        }
 
+        if (deportista.get('equipo')) {
+            return res.status(400).json({
+                ok: false, 
+                msg: 'El deportista ya tiene un contrato activo!'
+            })
+        }
+
+        const contratacion = await Contratacion.create(payload);
         await contratacion.relateTo(deportista, 'para_el')
         await deportista.relateTo(contratacion, 'tiene_una')
         await contratacion.relateTo(equipo, 'realizada_por')
         await equipo.relateTo(contratacion, 'genera_una' )
         await deportista.relateTo(equipo, 'pertenece_a', {fecha_de_vinculacion: fecha_inicio})
         await equipo.relateTo(deportista, 'conformado_por')
+
+
 
         res.status(200).json({
             ok: true,

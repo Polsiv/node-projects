@@ -8,7 +8,6 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
-null;
 
         this.pathsMySql = {
             auth: '/api/auth',
@@ -24,13 +23,14 @@ null;
         }
 
         this.pathsNeo4j = {
-            
             deportistas_futbol: '/api/neo/futbol/deportistas/',
             deportistas_ciclismo: '/api/neo/ciclismo/deportistas/',
             equipos_futbol: '/api/neo/futbol/equipos',
             equipos_ciclismo: '/api/neo/ciclismo/equipos',
             contratacion: '/api/neo/contrataciones',
-            pais: '/api/neo/paises'
+            pais: '/api/neo/paises',
+            deporte_futbol: '/api/neo/futbol/',
+            deporte_ciclismo: '/api/neo/ciclismo/'
 
         }
 
@@ -60,13 +60,15 @@ null;
     }
 
     routes() {
-    
+        this.app.use(this.pathsNeo4j.deporte_futbol, require('../routes/neo4j/deportefutbol'))
+        this.app.use(this.pathsNeo4j.deporte_ciclismo, require('../routes/neo4j/deporteciclismo'))
+        this.app.use(this.pathsNeo4j.contratacion, require('../routes/neo4j/contratacion'))
         this.app.use(this.pathsNeo4j.deportistas_futbol, require('../routes/neo4j/deportistafutbol'))
         this.app.use(this.pathsNeo4j.deportistas_ciclismo, require('../routes/neo4j/deportistacliclismo'))
         this.app.use(this.pathsNeo4j.equipos_futbol, require('../routes/neo4j/equipofutbol'))
         this.app.use(this.pathsNeo4j.equipos_ciclismo, require('../routes/neo4j/equipociclismo'))
         this.app.use(this.pathsNeo4j.pais, require('../routes/neo4j/pais'))
-    
+       
         // outer routes
         this.app.use(this.pathsMongo.futbolistas, require('../routes/futbolista'));
         this.app.use(this.pathsMongo.equipos, require('../routes/equipo'));

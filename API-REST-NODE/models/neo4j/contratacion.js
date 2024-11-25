@@ -20,10 +20,10 @@ const Contratacion = instance.model('Contratacion', {
         type: 'int',
         required: true,
     },
-
+    
     // contratacion -> deportista
     para_el: {
-        type: 'relatioship',
+        type: 'relationship',
         target: 'Deportista',
         relationship: 'para_el',
         direction: 'out',
@@ -31,8 +31,6 @@ const Contratacion = instance.model('Contratacion', {
     },
 
     // contratacion -> equipo
-
-
     realizada_por: {
         type: 'relationship',
         target: 'Equipo',
@@ -41,7 +39,21 @@ const Contratacion = instance.model('Contratacion', {
         eager: 'true'
     },
 
-
+     //nodes
+     deportista: {
+        type: 'node',
+        target: 'Deportista',
+        relationship: 'para_el',
+        direction: 'out',
+        eager: 'true'
+    },
+    equipo: {
+        type: 'node',
+        target: 'Equipo',
+        relationship: 'realizada_por',
+        direction: 'out',
+        eager: 'true'
+    }
 });
 
 module.exports = Contratacion;

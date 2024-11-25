@@ -55,14 +55,23 @@ const Equipo = instance.model('Equipo', {
         eager: 'true'
     },
 
-    deporte: {
-        type: 'node',
-        target: 'Deporte',
+    // equipos -> pais
+    fundado_en: {
+        type: 'relationship',
+        target: 'Pais',
         relationship: 'fundado_en',
         direction: 'out',
         eager: 'true'
     },
 
+    // nodes
+    deporte: {
+        type: 'node',
+        target: 'Deporte',
+        relationship: 'asignado_a',
+        direction: 'out',
+        eager: 'true'
+    },
     pais: {
         type: 'node',
         target: 'Pais',
@@ -70,12 +79,18 @@ const Equipo = instance.model('Equipo', {
         direction: 'out',
         eager: 'true'
     },
+    contratacion: {
+        type: 'node',
+        target: 'Contratacion',
+        relationship: 'genera_una',
+        direction: 'out',
+        eager: 'true'
 
-    // equipos -> pais
-    fundado_en: {
-        type: 'relationship',
-        target: 'Pais',
-        relationship: 'fundado_en',
+    },
+    deportista: {
+        type: 'nodes',
+        target: 'Deportista',
+        relationship: 'conformado_por',
         direction: 'out',
         eager: 'true'
     }

@@ -1,3 +1,5 @@
+const { col } = require("sequelize");
+
 function filtroFutbolista(collection){
     return collection.map(element => {
         const fechaNacimiento = element.get('fecha_nacimiento');
@@ -10,7 +12,7 @@ function filtroFutbolista(collection){
             id: element.get('id_deportista'),
             nombres: element.get('nombres'),
             apellidos: element.get('apellidos'),
-            fecha_nacimiento: `${dia}-${mes}-${year}`,
+            fecha_nacimiento: `${year}-${mes}-${dia}`,
             sexo: element.get('sexo'),
             partidos: partidos,
             deporte: element.get('deporte'),
@@ -30,7 +32,7 @@ function filtroCiclista(collection){
             id: element.get('id_deportista'),
             nombres: element.get('nombres'),
             apellidos: element.get('apellidos'),
-            fecha_nacimiento: `${dia}-${mes}-${year}`,
+            fecha_nacimiento: `${year}-${mes}-${dia}`,
             sexo: element.get('sexo'),
             titulos: titulos,
             deporte: element.get('deporte'),
@@ -39,31 +41,55 @@ function filtroCiclista(collection){
 }
 
 function filtroEquiposFutbol(collection) {
-    const equipos = [];
-    for (const equipo of collection) {
-        const payload = {
-            id: equipo.get('id_equipo'),
-            nombre: equipo.get('nombre'),
-            titulos: equipo.get('titulos').low,
-            estadio: equipo.get('estadio')
-        }
-        equipos.push(payload)
-    }
-    return equipos
+    return collection.map(equipo => ({
+        id: equipo.get('id_equipo'),
+        nombre: equipo.get('nombre'),
+        titulos: equipo.get('titulos').low,
+        estadio: equipo.get('estadio')
+    }));
 }
+
 
 function filtroEquiposCiclismo(collection) {
-    const equipos = [];
-    for (const equipo of collection) {
-        const payload = {
-            id: equipo.get('id_equipo'),
-            nombre: equipo.get('nombre'),
-            titulos: equipo.get('titulos').low,
-            especialidad: equipo.get('especialidad')
-        }
-        equipos.push(payload)
-    }
-    return equipos
+    return collection.map(equipo => ({
+        id: equipo.get('id_equipo'),
+        nombre: equipo.get('nombre'),
+        titulos: equipo.get('titulos').low,
+        especialidad: equipo.get('especialidad')
+    }));
 }
 
-module.exports = {filtroFutbolista, filtroCiclista, filtroEquiposFutbol, filtroEquiposCiclismo}
+
+
+function filtroContratacion(collection) {
+    return collection.map(contratacion => {
+    
+        const { day: { low: d_i }, month: { low: m_i }, year: { low: a_i } } = contratacion.get('fecha_inicio');
+        
+        const { day: { low: d_f }, month: { low: m_f }, year: { low: y_f } } = contratacion.get('fecha_finalizacion');
+
+        return {
+            id: contratacion.get('id_contratacion'),
+            fecha_inicio: `${a_i}-${m_i}-${d_i}`,
+            fecha_finalizacion: `${y_f}-${m_f}-${d_f}`,
+            valor: contratacion.get('valor').low
+        };
+    });
+}
+
+function filtroDeporte(collection){
+    return collection.map(deporte => ({
+        id_deporte: deporte.get('id_deporte'),
+        nombre: deporte.get('nombre'),
+        pais_origen: deporte.get('pais_origen')
+    }))
+}
+
+module.exports = {
+    filtroFutbolista, 
+    filtroCiclista, 
+    filtroEquiposFutbol, 
+    filtroEquiposCiclismo,
+    filtroContratacion,
+    filtroDeporte
+}

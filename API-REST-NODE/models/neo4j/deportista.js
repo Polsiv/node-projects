@@ -37,18 +37,18 @@ const Deportista = instance.model('Deportista', {
     deporte: {
         type: 'string',
         required: true,  
-        valid: ['futbol', 'ciclismo']
+        valid: ['Futbol', 'Ciclismo']
     },
 
     // deportista -> pais
     nacido_en: {
-        type: 'relatioship',
+        type: 'relationship',
         target: 'Pais',
         relationship: 'nacido_en',
         direction: 'out',
         properties: {
-            fecha_de_vinculacion: 'date',
-            lugar_de_nacimiento: 'string'
+            fecha_nacimiento: 'date',
+            ciudad_de_nacimiento: 'string'
         },
         eager: 'true'
     },
@@ -69,11 +69,34 @@ const Deportista = instance.model('Deportista', {
         relationship: 'pertenece_e',
         direction: 'out',
         properties: {
+            fecha_de_vinculacion: 'date'
+        },
+        eager: 'true'
+    },
 
-        }
+    //nodes
+    contratacion: {
+        type: 'node',
+        target: 'Contratacion',
+        relationship: 'tiene_una',
+        direction: 'out',
+        eager: 'true'
+    },
+    pais: {
+        type: 'node',
+        target: 'Pais',
+        relationship: 'nacido_en',
+        direction: 'out',
+        eager: 'true'
+    },
+
+    equipo: {
+        type: 'node',
+        target: 'Equipo',
+        relationship: 'pertenece_a',
+        direction: 'out',
+        eager: 'true'
     }
-
-
 });
 
 module.exports = Deportista;

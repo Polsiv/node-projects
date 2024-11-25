@@ -34,14 +34,6 @@ const Deporte = instance.model('Deporte', {
         direction: 'out',
         eager: 'true'
     },
-
-    pais: {
-        type: 'node',
-        target: 'Pais',
-        relationship: 'la_razon_de',
-        direction: 'out',
-        eager: 'true'
-    }
 });
 
 module.exports = Deporte;

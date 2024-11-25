@@ -29,12 +29,12 @@ const agregarPais = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('error adding Pais:', error);
+        console.error('Error al crear el pais', error);
 
         if (error.code === "Neo.ClientError.Schema.ConstraintValidationFailed") {
             res.status(400).json({
                 ok: false,
-                msg: 'Country already exists!'
+                msg: 'el Pais ya existe!'
             });
         } else {
 

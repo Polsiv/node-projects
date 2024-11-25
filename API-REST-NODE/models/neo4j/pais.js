@@ -32,10 +32,19 @@ const Pais = instance.model('Pais', {
         eager: 'true'
     },
 
-    equipos: {
+    //nodes
+    equipo: {
         type: 'nodes',
         target: 'Equipo',
         relationship: 'lugar_de_origen',
+        direction: 'out',
+        eager: 'true'
+    },
+
+    deportista: {
+        type: 'nodes',
+        target: 'Deportista',
+        relationship: 'lugar_de_nacimiento_de',
         direction: 'out',
         eager: 'true'
     }

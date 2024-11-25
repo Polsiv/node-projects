@@ -66,7 +66,7 @@ const Deportista = instance.model('Deportista', {
     pertenece_a: {
         type: 'relationship',
         target: 'Equipo',
-        relationship: 'pertenece_e',
+        relationship: 'pertenece_a',
         direction: 'out',
         properties: {
             fecha_de_vinculacion: 'date'

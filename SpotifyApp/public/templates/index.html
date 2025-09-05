@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <!--icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!--custom-->
+    <link rel="stylesheet" href="../styles/styles.css">
+
+</head>
+<body>
+    <!--Navbar-->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+
+      <!--Logo and shit-->
+        <div class="navbar-brand">
+              <div class="navbar-item">
+                <img src="/Assets/loguito.png" alt="the best logo">
+                <p class="inria-sans-bold-italic is-size-4" >Videofy</p>
+              </div>
+        </div>
+    
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <div class="navbar-item">
+              <input class="input is-rounded" type="text" placeholder="Search Video"/>
+            </div>
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <div class="columns">      
+                    <a class="button is-link is-rounded sidebar-btn">Trending</a>
+                    <a class="button is-link is-rounded sidebar-btn">Subcriptions</a>
+                    <a class="button is-link is-rounded sidebar-btn">Playlist</a>
+                    <a class="button is-primary is-rounded" id="login-button" href="http://localhost:3000/auth/login">Login</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </nav>
+
+    <!--Main section-->
+
+    <section class="section">         
+         <!-- Video Reproducer--> 
+         <div class="column" id="DisplayVideo-container">
+          <div id="player"></div>
+        </div>  
+    </section>
+
+    <!--Carousel-->
+
+    <section class="section card-wrapper">
+      <div class="columns is-full" id="Swipe-Container">
+        <div class="container mt-5">
+          <div class="swiper mySwiper">
+              <div class="swiper-wrapper" id="VideoContainer">
+                <!--Cards-->
+              </div>
+              <!-- Navigation buttons -->
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--Reproducer-->
+    
+    <section class="reproducer">
+    
+           <div>
+             <button class="btn" onclick="prevVideo()">
+               <i class="fas fa-backward"></i>
+             </button>
+           </div>
+            <div>
+              <button class="btn btn-play" onclick="togglePlayPause()">
+                <i id="play-icon" class="fas fa-play"></i>
+              </button>
+            </div>
+           <div>
+             <button class="btn" onclick="nextVideo()">
+               <i class="fas fa-forward"></i>
+             </button>
+           </div>
+     
+    </section>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> 
+
+    <!-- fetching videos-->
+    <script src="../scripts/fetchVideos.js"></script>
+    
+</body>
+</html>
+
+

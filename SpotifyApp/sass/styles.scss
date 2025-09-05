@@ -1,0 +1,152 @@
+@use './colors' as *;    
+@use '../node_modules/bulma/bulma.scss';
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@mixin card-inset-shadow {
+    box-shadow: inset 4.2px 4.2px 17px #141414, inset -4.2px -4.2px 17px #2A2A2A;
+}
+
+@mixin navbar-inset-shadow {
+    box-shadow: inset 9.91px 9.91px 15px #1C1C1C, inset 11px 11px 17px #222222;
+}
+
+@mixin main-height {
+    border-radius: 10px;
+    background-color: $section !important;
+
+}
+
+@mixin button-shadow {
+    border-radius: 28px;
+    background: linear-gradient(145deg, #f0f0f0, #cacaca);
+    box-shadow:  18px 18px 36px #c7c7c7,
+                -18px -18px 36px #f9f9f9;
+}
+
+// navbar ===============
+
+.navbar {
+    padding: 20px;
+    background-color: $section;
+  }
+
+p.inria-sans-bold-italic {
+    font-family: "Inria Sans", serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+
+.navbar-item img {
+    max-height: 3rem !important; 
+    width: auto;
+}
+
+.input {
+    color: $font-title !important;
+    
+}
+
+#login-button {
+    background-color: $green-color;
+    color: $home-button;
+}
+
+.fixed-grid {
+    width: 100%;
+}
+
+// buttons ===================
+
+.sidebar-btn {
+    background-color: $cards;
+    color: $font-title !important;
+    margin-right: 10px;
+    border: 1px solid $btnBorder !important;
+    
+}
+
+
+// Section ===================
+
+div #Card-Container, #DisplayVideo-container { 
+    @include main-height;
+  
+}
+
+.section {
+    background-color: $main-color !important;
+}
+
+#DisplayVideo-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#player {
+    width: 100% !important; 
+    max-width: 1700px; /* Adjust as needed */
+    aspect-ratio: 16 / 9;
+}
+
+
+// side bar ================
+
+#Card-Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+// Cards styles ===================
+
+.card {
+    width: 300px !important;  /* Fixed width */
+    height: 400px !important; /* Fixed height */
+    background-color: $section !important;
+    color: $font-title !important;
+    padding: 7px;
+}
+
+// Footer ================================
+
+section.reproducer { 
+   background-color: $section !important; 
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   height: 10vh;
+   gap: 15px; 
+}
+
+.btn {
+    background-color: $green-color !important;
+    border: none;
+    width: 50px; 
+    height: 50px;
+    border-radius: 50% !important;
+    cursor: pointer;
+    font-size: 24px;
+    color: white !important;
+    i {
+        pointer-events: none;
+    }
+}
+
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+
+.btn-play {
+    width: 75px; 
+    height: 75px;
+    font-size: 28px;
+    border-radius: 50%; 
+}

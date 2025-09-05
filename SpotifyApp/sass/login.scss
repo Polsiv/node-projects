@@ -1,0 +1,33 @@
+@use './colors' as *;    
+@use '../node_modules/bulma/bulma.scss';
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+html, body {
+    height: 100%;
+}
+
+.columns {
+    min-height: 100vh; 
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: #757575;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.google-btn img {
+    width: 20px;
+    margin-right: 10px;
+}

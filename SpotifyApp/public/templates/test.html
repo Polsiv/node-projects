@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Player</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        #player {
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn {
+            background-color: #1DB954;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #1ed760;
+        }
+
+        .btn i {
+            pointer-events: none;
+        }
+
+        .btn-play {
+            width: 70px;
+            height: 70px;
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+
+     
+
+    <div class="controls">
+        <button class="btn" onclick="prevVideo()">
+            <i class="fas fa-backward"></i>
+        </button>
+        <button class="btn btn-play" onclick="togglePlayPause()">
+            <i id="play-icon" class="fas fa-play"></i>
+        </button>
+        <button class="btn" onclick="nextVideo()">
+            <i class="fas fa-forward"></i>
+        </button>
+    </div>
+
+    <script>
+        
+    </script>
+</body>
+</html>

@@ -1,3 +1,5 @@
+// yall can mess with it idc its not mine anyway
+
 const { Sequelize } = require('sequelize');
 
 const bdmysql = new Sequelize(
